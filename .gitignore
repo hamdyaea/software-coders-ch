@@ -7,3 +7,6 @@ log/
 *.pem
 *.sqlite
 *.db
+
+/dist/
+__pycache__/
