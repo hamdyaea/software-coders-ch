@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://software-coders.ch/sitemap.xml

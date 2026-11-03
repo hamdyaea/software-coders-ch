@@ -1,0 +1,11 @@
+# Bloquer l'accès aux fichiers et dossiers sensibles
+RewriteRule ^(\.git|log|node_modules|vendor|backup|tmp|old|\.vscode|\.idea)(/|$) - [F,L]
+
+# Bloquer les fichiers de logs, configs et bases de données
+RewriteRule \.(log|sql|sqlite|db|bak|old|swp|swo|yml)$ - [F,L]
+
+# Protéger les fichiers de configuration Apache et système
+<FilesMatch "^(\.htaccess|\.htpasswd|composer\.json|composer\.lock|package\.json)$">
+    Require all denied
+</FilesMatch>
+

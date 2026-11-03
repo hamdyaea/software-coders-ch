@@ -1,0 +1,9 @@
+log/
+*.log
+.well-known/
+.env
+.env.*
+*.key
+*.pem
+*.sqlite
+*.db
