@@ -1,0 +1,14 @@
+#!/bin/sh
+# Developer: Hamdy Abou El Anein | Contact: info@software-coders.ch
+# SPDX-License-Identifier: GPL-3.0-only
+cat <<'HELP'
+Linux Incident Arena / Hamdy Abou El Anein
+mission 1..4    Initialiser un exercice (remet ses fichiers a zero).
+verifier       Verifier le resultat reel dans Linux.
+atelier-web    Serveur pedagogique BusyBox : start, stop, status.
+aide           Afficher cette aide.
+Commandes utiles : ls, cat, chmod, grep, sed, df, du, rm, ps, wget.
+Editeur : vi. Vous etes root dans cette machine de laboratoire.
+Aucun reseau externe, aucun acces aux fichiers de votre ordinateur.
+Pour repartir de zero, utilisez Recommencer dans la page.
+HELP

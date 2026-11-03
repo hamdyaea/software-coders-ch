@@ -1,0 +1,23 @@
+#!/bin/sh
+# Developer: Hamdy Abou El Anein | Contact: info@software-coders.ch
+# SPDX-License-Identifier: GPL-3.0-only
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs devtmpfs /dev
+mkdir -p /dev/pts /run /tmp /var/log /srv /root
+mount -t devpts devpts /dev/pts
+mount -t tmpfs -o mode=1777,size=24m tmpfs /tmp
+hostname sc-lab
+/sbin/ip addr add 127.0.0.1/8 dev lo
+/sbin/ip link set lo up
+export HOME=/root TERM=xterm-256color PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+printf '\033[2J\033[H'
+printf '\n  SOFTWARE CODERS / LINUX INCIDENT ARENA\n'
+printf '  Alpine Linux 3.22.7 - session locale et ephemere\n'
+printf '  Tapez aide pour retrouver les commandes du laboratoire.\n\n'
+mission 1
+printf '\nSC_LAB_READY\n'
+while true; do
+ setsid sh -c 'stty cols 80 rows 24; cd /root; export PS1="root@sc-lab:\w # "; exec sh -i </dev/ttyS0 >/dev/ttyS0 2>&1' </dev/ttyS0 >/dev/ttyS0 2>&1
+ sleep 1
+done

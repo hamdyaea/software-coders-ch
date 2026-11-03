@@ -1,0 +1,17 @@
+#!/bin/sh
+# Developer: Hamdy Abou El Anein | Contact: info@software-coders.ch
+# SPDX-License-Identifier: GPL-3.0-only
+n=$(cat /run/sc-mission 2>/dev/null); ok=no
+case "$n" in
+1) [ "$(stat -c '%a:%u' /srv/app/secret.env 2>/dev/null)" = '600:0' ] && [ "$(cat /srv/app/secret.env)" = 'DEMO_TOKEN=formation-locale-sans-secret-reel' ] && ok=yes;;
+2) [ "$(wget -T 3 -qO- http://127.0.0.1:8080/ 2>/dev/null)" = 'SC_ATELIER_OK' ] && ok=yes;;
+3) [ "$(cat /root/reponse.txt 2>/dev/null | tr -d '\r\n')" = 'SC-5042' ] && ok=yes;;
+4) avail=$(df -Pk /var/cache/atelier | awk 'NR==2 {print $4}'); [ "$avail" -ge 512 ] && [ "$(cat /var/cache/atelier/conserver.conf 2>/dev/null)" = 'configuration a conserver' ] && ok=yes;;
+*) echo 'Choisissez une mission avec mission 1.';exit 1;;
+esac
+if [ "$ok" = yes ]; then
+ printf '\nBravo ! Incident %s resolu.\nSC_RESULT:%s:PASS\n' "$n" "$n"
+else
+ printf '\nPas encore. Verifiez les objectifs et essayez a nouveau.\nSC_RESULT:%s:FAIL\n' "$n"
+ exit 1
+fi

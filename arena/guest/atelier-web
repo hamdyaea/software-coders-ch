@@ -1,0 +1,18 @@
+#!/bin/sh
+# Developer: Hamdy Abou El Anein | Contact: info@software-coders.ch
+# SPDX-License-Identifier: GPL-3.0-only
+case "$1" in
+start)
+ [ -r /etc/atelier/web.conf ] || { echo 'Configuration absente.';exit 1; }
+ . /etc/atelier/web.conf
+ [ "$PORT" = 8080 ] && [ -d "$DOCUMENT_ROOT" ] || { echo 'Echec : DOCUMENT_ROOT introuvable ou PORT incorrect.';exit 1; }
+ "$0" stop >/dev/null 2>&1
+ httpd -f -p 127.0.0.1:8080 -h "$DOCUMENT_ROOT" >/var/log/atelier-web.log 2>&1 &
+ echo $! >/run/atelier-web.pid
+ echo 'Serveur lance sur http://127.0.0.1:8080/.';;
+stop)
+ if [ -f /run/atelier-web.pid ]; then kill "$(cat /run/atelier-web.pid)" 2>/dev/null || true;rm -f /run/atelier-web.pid;fi;;
+status)
+ if wget -T 2 -qO- http://127.0.0.1:8080/ >/dev/null 2>&1;then echo 'actif';else echo 'arrete';exit 1;fi;;
+*) echo 'Usage : atelier-web start|stop|status';exit 1;;
+esac

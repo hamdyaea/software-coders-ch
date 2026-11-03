@@ -16,3 +16,14 @@ document.querySelectorAll('[data-topic]').forEach(link=>link.addEventListener('c
  if(msg&&!msg.value.trim())msg.placeholder='Je souhaite en savoir plus sur : '+link.dataset.topic+'. Mon niveau actuel est…';
 }));
 const year=document.querySelector('#year');if(year)year.textContent=new Date().getFullYear();
+
+// Developer: Hamdy Abou El Anein | Contact: info@software-coders.ch
+const arenaFrame=document.getElementById('arena-frame');
+document.getElementById('launch-arena')?.addEventListener('click',()=>{
+ document.getElementById('laboratoire')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ arenaFrame?.contentWindow?.postMessage({type:'sc-arena-start'},location.origin);
+});
+window.addEventListener('message',event=>{
+ if(event.origin!==location.origin||event.source!==arenaFrame?.contentWindow)return;
+ if(event.data?.type==='sc-arena-height'&&Number.isFinite(event.data.height)&&event.data.height>=300&&event.data.height<=2500)arenaFrame.style.height=event.data.height+'px';
+});

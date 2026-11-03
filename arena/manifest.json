@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "alpine": "3.22.7",
+  "memory_mib": 128,
+  "network_relay": false,
+  "persistence": false,
+  "files": {
+    "initrd.bin": {
+      "url": "runtime/initrd.bin",
+      "bytes": 3546647,
+      "sha256": "1d106790e752bb538eb24b6f870cff1db4c5c4a6fe4ffaf5da66e17642e0880d"
+    },
+    "vmlinuz.bin": {
+      "url": "runtime/vmlinuz.bin",
+      "bytes": 7700992,
+      "sha256": "2df278c6989043b26a5b90c087682b7585373f8b70711ee25a8b1f93af769dc1"
+    },
+    "v86.wasm": {
+      "url": "runtime/v86.wasm",
+      "bytes": 2007347,
+      "sha256": "2f0c4150f266415b754a84a32e6f8e4c975a1d3abb94c78b047fa30027db1ef1"
+    },
+    "seabios.bin": {
+      "url": "runtime/seabios.bin",
+      "bytes": 131072,
+      "sha256": "73e3f359102e3a9982c35fce98eb7cd08f18303ac7f1ba6ebfbe6cdc1c244d98"
+    },
+    "vgabios.bin": {
+      "url": "runtime/vgabios.bin",
+      "bytes": 36352,
+      "sha256": "a4bc0d80cc3ca028c73dafa8fee396b8d054ce87ebd8abfbd31b06b437607880"
+    },
+    "libv86.js": {
+      "url": "runtime/libv86.js",
+      "bytes": 359857,
+      "sha256": "e257912c4a1129e36a86c1e2df69904ab969d87bffd24aa6676e84d6ddffc1c6"
+    }
+  }
+}

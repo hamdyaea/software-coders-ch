@@ -1,0 +1,49 @@
+#!/bin/sh
+# Developer: Hamdy Abou El Anein | Contact: info@software-coders.ch
+# SPDX-License-Identifier: GPL-3.0-only
+case "$1" in 1|2|3|4) n="$1";; *) echo 'Usage : mission 1|2|3|4';exit 1;; esac
+echo "$n" >/run/sc-mission
+case "$n" in
+1)
+ mkdir -p /srv/app
+ printf 'DEMO_TOKEN=formation-locale-sans-secret-reel\n' >/srv/app/secret.env
+ chmod 644 /srv/app/secret.env
+ echo 'INCIDENT 01 / Un fichier de configuration est lisible par tous.'
+ echo 'Objectif : seul root doit pouvoir lire et ecrire /srv/app/secret.env.'
+ echo 'La valeur du fichier doit rester intacte.'
+ ;;
+2)
+ atelier-web stop >/dev/null 2>&1 || true
+ mkdir -p /srv/www/site /etc/atelier
+ printf 'SC_ATELIER_OK\n' >/srv/www/site/index.html
+ printf 'DOCUMENT_ROOT=/srv/www/introuvable\nPORT=8080\n' >/etc/atelier/web.conf
+ echo 'INCIDENT 02 / Le service web refuse de demarrer.'
+ echo 'Objectif : corriger /etc/atelier/web.conf et demarrer atelier-web.'
+ echo 'Le site de test est dans /srv/www/site. Port attendu : 8080.'
+ ;;
+3)
+ mkdir -p /var/log/atelier
+ cat >/var/log/atelier/app.log <<'LOG'
+2026-11-03T09:00:00 INFO  request=SC-5040 healthcheck OK
+2026-11-03T09:01:00 WARN  request=SC-5041 retry upstream
+2026-11-03T09:02:00 ERROR request=SC-5042 storage permission denied
+2026-11-03T09:03:00 INFO  request=SC-5043 response 200
+LOG
+ rm -f /root/reponse.txt
+ echo 'INCIDENT 03 / Retrouver la requete en erreur.'
+ echo 'Analysez /var/log/atelier/app.log et ecrivez uniquement son identifiant'
+ echo 'de requete (format SC-xxxx) dans /root/reponse.txt.'
+ ;;
+4)
+ mkdir -p /var/cache/atelier
+ mountpoint -q /var/cache/atelier || mount -t tmpfs -o size=1m tmpfs /var/cache/atelier
+ rm -f /var/cache/atelier/*.tmp
+ printf 'configuration a conserver\n' >/var/cache/atelier/conserver.conf
+ dd if=/dev/zero of=/var/cache/atelier/archive.tmp bs=1024 count=960 2>/dev/null
+ echo 'INCIDENT 04 / Le cache occupe presque tout son volume.'
+ echo 'Objectif : liberer au moins 512 Kio dans /var/cache/atelier.'
+ echo 'Conservez le fichier conserver.conf.'
+ ;;
+esac
+printf '\nQuand vous avez termine, tapez verifier.\n'
+printf 'SC_MISSION:%s\n' "$n"

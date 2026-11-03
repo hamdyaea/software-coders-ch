@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- Developer: Hamdy Abou El Anein | Contact: info@software-coders.ch -->
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><meta name="theme-color" content="#0a1321">
+<title>Linux Incident Arena — Hamdy Abou El Anein</title>
+<link rel="stylesheet" href="vendor/xterm.css"><link rel="stylesheet" href="arena.css">
+<script src="vendor/xterm.js" defer></script><script src="vendor/addon-fit.js" defer></script><script src="arena.js" defer></script></head>
+<body data-state="idle"><main class="arena-shell">
+<header class="arena-top"><div><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span><strong>Linux Incident Arena</strong><span class="version">ALPINE 3.22</span></div><span class="connection" id="state-label">Prêt à démarrer</span></header>
+<div class="workspace">
+<aside class="mission-panel" aria-label="Exercices de dépannage">
+<div class="mission-heading"><span>VOTRE PARCOURS</span><strong id="score">0 / 4</strong></div>
+<div class="mission-list" role="group" aria-label="Choisir un incident">
+<button type="button" class="mission active" data-mission="1" aria-pressed="true"><span class="number">01</span><span><strong>Secret trop exposé</strong><small>Permissions · Découverte</small></span><span class="check" aria-hidden="true"></span></button>
+<button type="button" class="mission" data-mission="2" aria-pressed="false"><span class="number">02</span><span><strong>Le site ne répond plus</strong><small>Configuration · Intermédiaire</small></span><span class="check" aria-hidden="true"></span></button>
+<button type="button" class="mission" data-mission="3" aria-pressed="false"><span class="number">03</span><span><strong>La trace dans les logs</strong><small>Analyse · Découverte</small></span><span class="check" aria-hidden="true"></span></button>
+<button type="button" class="mission" data-mission="4" aria-pressed="false"><span class="number">04</span><span><strong>Un volume saturé</strong><small>Stockage · Intermédiaire</small></span><span class="check" aria-hidden="true"></span></button>
+</div>
+<div class="mission-brief"><span class="small-label">VOTRE OBJECTIF</span><h1 id="mission-title">Secret trop exposé</h1><p id="mission-description">Le fichier /srv/app/secret.env est lisible par tout le monde. Limitez sa lecture et son écriture à root, sans modifier son contenu.</p></div>
+<details id="hint"><summary>Un indice pour démarrer</summary><p id="hint-text"></p></details>
+<details id="solution"><summary>Voir une solution expliquée</summary><p id="solution-text"></p><code id="solution-command"></code></details>
+<p class="session-note">Les exercices sont réinitialisés à leur sélection. La progression reste dans cette session uniquement.</p>
+</aside>
+<section class="console-panel" aria-label="Terminal Alpine Linux">
+<div class="console-meta"><span><b>root</b>@sc-lab <span class="path">~</span></span><span>Linux réel · BusyBox ash</span></div>
+<div class="terminal-wrap">
+<div id="terminal" aria-label="Terminal interactif Linux"></div>
+<div class="welcome" id="welcome"><div class="prompt-icon" aria-hidden="true">&gt;_</div><h2>Le dépannage commence ici.</h2><p>Un vrai système Alpine Linux, un terminal<br>et quatre incidents à résoudre.</p><button id="start" type="button" class="primary">Démarrer le laboratoire <span aria-hidden="true">↗</span></button><span class="download-note">Environ 14 Mo · Démarrage en quelques secondes</span></div>
+</div>
+<div class="status-row"><span id="status" role="status" aria-live="polite">Démarrez, puis saisissez vos commandes dans le terminal.</span><progress id="progress" max="100" value="0" hidden aria-label="Téléchargement du système"></progress></div>
+<div class="console-controls"><button id="validate" type="button" class="primary" disabled>Vérifier ma solution <span aria-hidden="true">✓</span></button><button id="restart" type="button" disabled>Recommencer</button><button id="stop" type="button" disabled>Arrêter</button><button id="fullscreen" type="button" aria-label="Afficher le laboratoire en plein écran">⤢ <span>Plein écran</span></button></div>
+<p class="keyboard-note">Cliquez dans le terminal pour écrire. <kbd>Tab</kbd> complète les commandes · <kbd>Ctrl</kbd> + <kbd>C</kbd> interrompt · <code>aide</code> affiche les repères.</p>
+</section></div>
+<footer class="arena-footer"><span><i aria-hidden="true"></i> Exécution locale · Sans compte · Aucun accès à vos fichiers</span><a href="SOURCES.md" target="_blank" rel="noopener">Sources & licences ↗</a></footer>
+<p class="mobile-note">Conseillé sur ordinateur avec un clavier. Sur mobile, le terminal reste accessible mais le confort et les performances varient.</p>
+</main></body></html>
