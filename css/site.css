@@ -62,3 +62,6 @@
 
 /* Keep descriptive course links within small screens. */
 .course-region-note .inline-link { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
+
+.breadcrumbs{padding-top:24px;font-size:13px;display:flex;flex-wrap:wrap;gap:10px;color:var(--muted)}
+.breadcrumbs a{color:var(--accent)}
