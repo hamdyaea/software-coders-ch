@@ -6,12 +6,12 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'dist/cloudflare-pages'
 if OUT.exists():shutil.rmtree(OUT)
 OUT.mkdir(parents=True)
-for name in ['index.html','404.html','chatbot.js','chatbot.css','qr.png','robots.txt','sitemap.xml','_headers','css','img','js','lib','arena','formations']:
+for name in ['index.html','404.html','chatbot.js','chatbot.css','qr.png','robots.txt','sitemap.xml','_headers','css','img','js','lib','arena','formations','hamdy-abou-el-anein']:
  src=ROOT/name
  if src.is_dir():shutil.copytree(src,OUT/name,ignore=shutil.ignore_patterns('*.php','*.scss','*.log','.htaccess','guest','inputs.lock.json'))
  elif src.is_file():shutil.copy2(src,OUT/name)
 # Version interface assets by content; binary URLs are always revalidated.
-for page_name,assets in [('index.html',['css/site.css','js/site.js']),('arena/index.html',['arena.css','arena.js']),('formations/linux/index.html',['../../css/site.css','../../js/site.js']),('formations/python/index.html',['../../css/site.css','../../js/site.js']),('formations/cybersecurite/index.html',['../../css/site.css','../../js/site.js']),('formations/autres/index.html',['../../css/site.css','../../js/site.js'])]:
+for page_name,assets in [('index.html',['css/site.css','js/site.js']),('arena/index.html',['arena.css','arena.js'])]+[(str(p.relative_to(OUT)),['../../css/site.css','../../js/site.js']) for p in sorted((OUT/'formations').glob('*/index.html'))]+[('hamdy-abou-el-anein/index.html',['../css/site.css','../js/site.js'])]:
  page=OUT/page_name;text=page.read_text()
  for asset in assets:
   target=page.parent/asset
