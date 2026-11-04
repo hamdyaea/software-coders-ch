@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'dist/cloudflare-pages'
 if OUT.exists():shutil.rmtree(OUT)
 OUT.mkdir(parents=True)
-for name in ['index.html','404.html','chatbot.js','chatbot.css','qr.png','robots.txt','sitemap.xml','_headers','css','img','js','lib','arena','formations','hamdy-abou-el-anein']:
+for name in ['index.html','404.html','chatbot.js','chatbot.css','qr.png','robots.txt','sitemap.xml','_headers','_worker.js','_routes.json','css','img','js','lib','arena','formations','hamdy-abou-el-anein']:
  src=ROOT/name
  if src.is_dir():shutil.copytree(src,OUT/name,ignore=shutil.ignore_patterns('*.php','*.scss','*.log','.htaccess','guest','inputs.lock.json'))
  elif src.is_file():shutil.copy2(src,OUT/name)
