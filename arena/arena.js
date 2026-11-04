@@ -40,7 +40,7 @@
   fit=new FitAddon.FitAddon();terminal.loadAddon(fit);terminal.open($('terminal'));fit.fit();
   terminal.onData(data=>{if(vm&&state==='running')vm.serial0_send(data);});
   // Layout changes must never inject shell commands or interrupt foreground jobs.
-  // The serial TTY gets its initial size once at boot; fit only resizes the display.
+  // Keep serial input reserved for the user; fit only resizes the display.
   new ResizeObserver(()=>{if(terminal)fit.fit();}).observe($('terminal'));
  }
  function processLine(text){
@@ -49,7 +49,7 @@
    clearTimeout(deadline);setState('running','Alpine est prêt. Commencez par ls -l /srv/app/secret.env.');
    // The readiness marker precedes the shell; let it attach to the serial TTY.
    const instance=vm,generation=epoch;
-   setTimeout(()=>{if(instance===vm&&generation===epoch&&state==='running'){vm.serial0_send('stty cols '+terminal.cols+' rows '+terminal.rows+'\n');if(active!==1)vm.serial0_send('mission '+active+'\n');terminal.focus();}},250);
+   setTimeout(()=>{if(instance===vm&&generation===epoch&&state==='running'){if(active!==1)vm.serial0_send('mission '+active+'\n');terminal.focus();}},250);
   }
   const mission=clean.match(/^SC_MISSION:([1-4])$/);
   if(mission&&state==='running'&&Number(mission[1])!==active)select(Number(mission[1]),false);

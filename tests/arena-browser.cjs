@@ -19,6 +19,7 @@ const out=path.resolve(__dirname,'../dist/arena-qa');fs.mkdirSync(out,{recursive
  console.log('STATE',await arena.locator('body').getAttribute('data-state'),await arena.locator('#status').innerText());
  if(await arena.locator('body').getAttribute('data-state')!=='running')throw Error(await arena.locator('#status').innerText());
  await arena.waitForTimeout(500);
+ if((await arena.locator('.xterm-rows').innerText()).includes('stty cols'))throw Error('Boot injected stty into the prompt');
  await arena.locator('.xterm-helper-textarea').focus();
  await page.keyboard.type('uname -s',{delay:45});await page.keyboard.press('Enter');
  await arena.waitForTimeout(500);
@@ -66,7 +67,7 @@ const out=path.resolve(__dirname,'../dist/arena-qa');fs.mkdirSync(out,{recursive
  await arena.waitForTimeout(1000);
  if(await arena.locator('#score').innerText()!=='0 / 4')throw Error('Restart kept score');
  await arena.locator('#validate').click();
- await arena.waitForFunction(()=>document.getElementById('status').textContent.startsWith('Pas encore'),{},{timeout:10000});
+ try { await arena.waitForFunction(()=>document.getElementById('status').textContent.startsWith('Pas encore'),{},{timeout:10000}); } catch(error) { console.log('RESTART DIAGNOSTIC',await arena.locator('#status').innerText(),await arena.locator('.xterm-rows').innerText());throw error; }
  await arena.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));});
  await arena.waitForFunction(()=>document.body.dataset.state==='paused');
  await arena.waitForTimeout(200);
