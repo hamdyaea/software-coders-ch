@@ -39,7 +39,8 @@
   terminal=new Terminal({cursorBlink:true,fontFamily:'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',fontSize:13,lineHeight:1.35,scrollback:1800,convertEol:false,allowProposedApi:false,theme:{background:'#080f1a',foreground:'#cfdfec',cursor:'#78e8bd',selectionBackground:'#2b6455',green:'#78e8bd',brightGreen:'#a4f5d7'}});
   fit=new FitAddon.FitAddon();terminal.loadAddon(fit);terminal.open($('terminal'));fit.fit();
   terminal.onData(data=>{if(vm&&state==='running')vm.serial0_send(data);});
-  terminal.onResize(({cols,rows})=>{if(vm&&state==='running')vm.serial0_send('\x03stty cols '+cols+' rows '+rows+'\n');});
+  // Layout changes must never inject shell commands or interrupt foreground jobs.
+  // The serial TTY gets its initial size once at boot; fit only resizes the display.
   new ResizeObserver(()=>{if(terminal)fit.fit();}).observe($('terminal'));
  }
  function processLine(text){

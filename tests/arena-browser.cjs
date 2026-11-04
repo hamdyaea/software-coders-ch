@@ -28,6 +28,19 @@ const out=path.resolve(__dirname,'../dist/arena-qa');fs.mkdirSync(out,{recursive
  await arena.waitForTimeout(300);await arena.locator('#validate').click();
  await arena.waitForFunction(()=>document.getElementById('score').textContent==='1 / 4',{},{timeout:10000});
  console.log('BROWSER KEYBOARD + FAILED AND SUCCESSFUL VALIDATION PASS');
+ // Hints, solutions and viewport changes must preserve jobs and unfinished input.
+ await arena.locator('.xterm-helper-textarea').focus();
+ await page.keyboard.type('sleep 3; echo RESIZE_JOB_DONE');await page.keyboard.press('Enter');
+ await arena.locator('#hint summary').click();await arena.locator('#solution summary').click();
+ await page.setViewportSize({width:1280,height:1000});
+ await arena.waitForFunction(()=>document.querySelector('.xterm-rows').innerText.split('\n').some(l=>l.trim()==='RESIZE_JOB_DONE'),{},{timeout:10000});
+ await arena.locator('.xterm-helper-textarea').focus();await page.keyboard.type('echo INPUT_');
+ await arena.locator('#hint summary').click();await arena.locator('#solution summary').click();
+ await page.setViewportSize({width:1440,height:1100});
+ await arena.locator('.xterm-helper-textarea').focus();await page.keyboard.type('PRESERVED');await page.keyboard.press('Enter');
+ await arena.waitForFunction(()=>document.querySelector('.xterm-rows').innerText.split('\n').some(l=>l.trim()==='INPUT_PRESERVED'),{},{timeout:10000});
+ console.log('RESIZE PRESERVES FOREGROUND JOB AND PARTIAL COMMAND PASS');
+
  await page.screenshot({path:path.join(out,'lab-running.png'),fullPage:true});
  await arena.locator('[data-mission="3"]').click();await arena.waitForTimeout(300);
  await arena.locator('.xterm-helper-textarea').focus();await page.keyboard.type('echo SC-5042 > /root/reponse.txt',{delay:25});await page.keyboard.press('Enter');
