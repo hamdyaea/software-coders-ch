@@ -11,7 +11,7 @@ for name in ['index.html','404.html','chatbot.js','chatbot.css','qr.png','robots
  if src.is_dir():shutil.copytree(src,OUT/name,ignore=shutil.ignore_patterns('*.php','*.scss','*.log','.htaccess','guest','inputs.lock.json'))
  elif src.is_file():shutil.copy2(src,OUT/name)
 # Version interface assets by content; binary URLs are always revalidated.
-for page_name,assets in [('index.html',['css/site.css','js/site.js']),('arena/index.html',['arena.css','arena.js']),('formations/linux/index.html',['../../css/site.css','../../js/site.js']),('formations/python/index.html',['../../css/site.css','../../js/site.js']),('formations/cybersecurite/index.html',['../../css/site.css','../../js/site.js'])]:
+for page_name,assets in [('index.html',['css/site.css','js/site.js']),('arena/index.html',['arena.css','arena.js']),('formations/linux/index.html',['../../css/site.css','../../js/site.js']),('formations/python/index.html',['../../css/site.css','../../js/site.js']),('formations/cybersecurite/index.html',['../../css/site.css','../../js/site.js']),('formations/autres/index.html',['../../css/site.css','../../js/site.js'])]:
  page=OUT/page_name;text=page.read_text()
  for asset in assets:
   target=page.parent/asset
